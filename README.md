@@ -18,7 +18,7 @@ VSO Git repository URLs are of the form:
 
 This image also removes the infamous account email verification on user sign-up.
 
-### How to Build the Docker Image
+### Build the Docker Image
 Issue the following command to rebuild the Docker image.
 ```
 docker build -t <your_docker_user_name>/readthedocs:latest --rm=true .
@@ -27,7 +27,7 @@ docker build -t <your_docker_user_name>/readthedocs:latest --rm=true .
 Note that you will need access to the Internet while building the machine.
 Depending on package site availability the building may take a while.
 
-### How to Run the Container
+### Run the Container
 ```
 docker run -d -it -p 8000:8000 -e "RTD_PRODUCTION_DOMAIN=my_domain.com:8000" --name readthedocs vassilvk/readthedocs
 ```
@@ -65,6 +65,6 @@ Now you can start the container by mounting the host-provided folder like this:
 docker run -d -it -p 8000:8000 -e "RTD_PRODUCTION_DOMAIN=my_domain.com:8000" -v ~/readthedocs.org:/www/readthedocs.org --name readthedocs vassilvk/readthedocs
 ```
 
-### How to Access the Application
+### Access the Application
 To access the web application hosted by the container, navigate to http://my_domain.com:8000/ where "my_domain.com" is the address of the container host.
 You can access the site with user `admin`, password `admin`.
