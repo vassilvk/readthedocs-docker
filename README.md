@@ -8,13 +8,13 @@ Installed packages include:
 * Dvipng
 * Graphviz
 
-This setup allows private GitHub documentation projects including ones hosted at Visual Studio Online.
+This setup allows private GitHub and Visual Studio Online (VSO) Git documentation projects.
 
-GitHub repository urls are of the form:
-https://<your-security-token>:x-oauth-basic@github.com/<your_name>/<your_project>.git
+GitHub repository URLs are of the form:
+`https://<your-security-token>:x-oauth-basic@github.com/<your_name>/<your_project>.git`
 
 VSO Git repository URLs are of the form:
-https://<your-security-token>:x-oauth-basic@<your_name>.visualstudio.com/DefaultCollection/_git/<your_project>
+`https://<your-security-token>:x-oauth-basic@<your_name>.visualstudio.com/DefaultCollection/_git/<your_project>`
 
 This image also removes the infamous account email verification on user sign-up.
 
