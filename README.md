@@ -1,6 +1,6 @@
 ### On-Premises ReadTheDocs (RTD) Docker Container
 
-This is an on-premises setup of ReadTheDocs (RTD) with full support of LaTeX-to-PDF and other bells-and-whistles installed at readthedocs.org.
+This is an on-premises setup of ReadTheDocs (RTD) with full support for LaTeX-to-PDF and other bells-and-whistles installed at readthedocs.org.
 
 Installed packages include:
 * LaTeX
