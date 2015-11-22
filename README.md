@@ -1,6 +1,6 @@
-## On-Premises ReadTheDocs (RTD) Docker Container
+### On-Premises ReadTheDocs (RTD) Docker Container
 
-On-premises setup of ReadTheDocs (RTD) with full support of LaTeX-to-PDF and all the other bells-and-whistles installed at readthedocs.org.
+This is an on-premises setup of ReadTheDocs (RTD) with full support of LaTeX-to-PDF and all the other bells-and-whistles installed at readthedocs.org.
 
 Installed packages include:
 * LaTeX
@@ -17,15 +17,6 @@ VSO Git repository URLs are of the form:
 `https://<your-security-token>:x-oauth-basic@<your_name>.visualstudio.com/DefaultCollection/_git/<your_project>`
 
 This image also removes the infamous account email verification on user sign-up.
-
-### Build the Docker Image
-Issue the following command to rebuild the Docker image.
-```
-docker build -t <your_docker_user_name>/readthedocs:latest --rm=true .
-```
-
-Note that you will need access to the Internet while building the machine.
-Depending on package site availability the building may take a while.
 
 ### Run the Container
 ```
@@ -47,15 +38,17 @@ When you run the container for the first time, it creates a container volume whe
 Removing the container will delete the container's volume with all the RTD data. Don't remove it unless you want to re-import your RTD projects from scratch.
 
 ### Persist the Volume
-Once the container is run with the above run command, you can copy the volume to a well-known folder at your host.
-This will let you to bind the container's volume to this host folder which will allow you to persist the data even after container deletes.
+If you need to be able to delete the container and still persist your project data, you can do so by mounting a host folder which contains a copy of the initial container volume.
 
-To find the location where Docker stores the volume, run
+Once the container is run with the above run command, you can copy the volume to a well-known folder at your host.
+This will let you bind the container's volume to this host folder which will allow you to persist the data even after container the container is deleted and re-run.
+
+To find the location where Docker stores the volume, run the following command while the container is running or stopped, but not deleted:
 ```
 docker inspect readthedocs
 ```
 
-1. Look for the `Mounts` property and take a note of the `Source`.
+1. Look for the `Mounts` property and take a note of the `Source` property.
 2. Stop the container: `docker stop readthedocs`.
 3. Copy that folder to a folder on your host, for example `~\readthedocs.org`
 
