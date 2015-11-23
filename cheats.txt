@@ -1,6 +1,3 @@
-# Git repository URL
-https://3nkqjrekr356tojbx4zh3iiendduib5zjimkhalx3zrsaxqsedjq:x-oauth-basic@vkovatchev.visualstudio.com/DefaultCollection/_git/solvas_fabric
-
 # Build new image
 docker build -t vassilvk/readthedocs:latest --rm=true .
 
