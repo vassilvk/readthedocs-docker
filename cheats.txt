@@ -1,5 +1,13 @@
+# Run this on the Windows command prompt to enable sym-links to be created on the "projects" share
+VBoxManage setextradata VM_NAME VBoxInternal2/SharedFoldersEnableSymlinksCreate/projects 1
+
 # Build new image
 docker build -t vassilvk/readthedocs:latest --rm=true .
 
-# Run the instance
-docker run -d -it -p 8000:8000 -e "RTD_PRODUCTION_DOMAIN=192.168.99.100:8000" -v ~/readthedocs.org:/www/readthedocs.org --name readthedocs vassilvk/readthedocs
+# Run the instance off of boot2docker
+docker run -d -it -p 8000:8000 -e "RTD_PRODUCTION_DOMAIN=192.168.99.100:8000" -v /projects/doc-server/readthedocs.org:/www/readthedocs.org --name readthedocs vassilvk/readthedocs
+
+
+# Run the instance off of Windows (same as above, only use two slashes at the beginning of the volume path)
+docker run -d -it -p 8000:8000 -e "RTD_PRODUCTION_DOMAIN=192.168.99.100:8000" -v //projects/doc-server/readthedocs.org:/www/readthedocs.org --name readthedocs vassilvk/readthedocs
+
