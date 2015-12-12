@@ -13,3 +13,6 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 # Enable private Git doc repositories
 ALLOW_PRIVATE_REPOS = True
+
+# Fix the static URL to point to the correct URL
+STATIC_URL = '/media/'
