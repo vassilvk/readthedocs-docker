@@ -19,13 +19,6 @@ RUN mv ./readthedocs.org-master ./readthedocs.org
 
 WORKDIR /www/readthedocs.org
 
-# Fix broken media paths
-# Copy files from readthedocs to media to make themes and JavaScript work
-RUN mkdir ./media/static
-RUN cp -a ./readthedocs/static/* ./media/static/
-RUN cp -a ./readthedocs/core/static/* ./media/static/
-
-
 # Install the required Python packages
 RUN pip install -r requirements.txt
 
@@ -43,6 +36,9 @@ RUN echo "from django.contrib.auth.models import User; User.objects.create_super
 
 # Load test data
 RUN python ./manage.py loaddata test_data
+
+# Copy static files
+RUN python ./manage.py collectstatic --noinput
 
 # Install supervisord
 RUN pip install supervisor
