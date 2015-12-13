@@ -7,7 +7,8 @@ RUN apt-get update && apt-get -y install \
   texlive-latex-extra \
   doxygen \
   dvipng \
-  graphviz
+  graphviz \
+  nginx
 
 # Install readthedocs (bits as of Nov 20 2015)
 RUN mkdir /www
@@ -40,6 +41,14 @@ RUN python ./manage.py loaddata test_data
 # Copy static files
 RUN python ./manage.py collectstatic --noinput
 
+# Install gunicorn web server
+RUN pip install gunicorn
+RUN pip install setproctitle
+
+# Set up the gunicorn startup script
+COPY ./files/gunicorn_start.sh ./gunicorn_start.sh
+RUN chmod u+x ./gunicorn_start.sh
+
 # Install supervisord
 RUN pip install supervisor
 ADD files/supervisord.conf /etc/supervisord.conf
@@ -47,5 +56,9 @@ ADD files/supervisord.conf /etc/supervisord.conf
 VOLUME /www/readthedocs.org
 
 ENV RTD_PRODUCTION_DOMAIN 'localhost:8000'
+
+# Set up nginx
+COPY ./files/readthedocs.nginx.conf /etc/nginx/sites-available/readthedocs
+RUN ln -s /etc/nginx/sites-available/readthedocs /etc/nginx/sites-enabled/readthedocs
 
 CMD ["supervisord"]
