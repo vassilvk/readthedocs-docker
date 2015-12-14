@@ -10,7 +10,7 @@ RUN apt-get update && apt-get -y install \
   graphviz \
   nginx
 
-# Install readthedocs (bits as of Nov 20 2015)
+# Install readthedocs (bits as of Dec 15 2015)
 RUN mkdir /www
 WORKDIR /www
 
