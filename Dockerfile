@@ -18,7 +18,6 @@ WORKDIR /www
 COPY ./files/readthedocs.org-master.tar.gz ./readthedocs.org-master.tar.gz
 COPY ./files/tasksrecommonmark.patch ./tasksrecommonmark.patch
 RUN tar -zxvf readthedocs.org-master.tar.gz
-RUN mv ./
 RUN mv ./readthedocs.org-master ./readthedocs.org
 
 WORKDIR /www/readthedocs.org
