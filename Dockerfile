@@ -8,7 +8,8 @@ RUN apt-get update && apt-get -y install \
   doxygen \
   dvipng \
   graphviz \
-  nginx
+  nginx \
+  nano
 
 # Install readthedocs (bits as of Dec 15 2015)
 RUN mkdir /www
@@ -63,5 +64,9 @@ ENV RTD_PRODUCTION_DOMAIN 'localhost:8000'
 # Set up nginx
 COPY ./files/readthedocs.nginx.conf /etc/nginx/sites-available/readthedocs
 RUN ln -s /etc/nginx/sites-available/readthedocs /etc/nginx/sites-enabled/readthedocs
+
+# Clean Up Apt
+
+RUN apt-get autoremove -y
 
 CMD ["supervisord"]
