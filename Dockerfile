@@ -26,6 +26,9 @@ RUN pip install -r requirements.txt
 # Install a higher version of requests to fix an SSL issue
 RUN pip install requests==2.6.0
 
+# Install a different version of recommonmark
+RUN pip install recommonmark==0.4.0
+
 # Override the default settings
 COPY ./files/local_settings.py ./readthedocs/settings/local_settings.py
 
