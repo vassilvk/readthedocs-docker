@@ -16,13 +16,14 @@ RUN mkdir /www
 WORKDIR /www
 
 COPY ./files/readthedocs.org-master.tar.gz ./readthedocs.org-master.tar.gz
+COPY ./files/tasksrecommonmark.patch ./tasksrecommonmark.patch
 RUN tar -zxvf readthedocs.org-master.tar.gz
+RUN mv ./
 RUN mv ./readthedocs.org-master ./readthedocs.org
 
-# Patch tasks.py to use newer recommonmark
-RUN patch ./readthedocs/projects/tasks.py < ./files/tasksrecommonmark.patch
-
 WORKDIR /www/readthedocs.org
+
+
 
 # Install the required Python packages
 RUN pip install -r requirements.txt
@@ -32,6 +33,10 @@ RUN pip install requests==2.6.0
 
 # Override the default settings
 COPY ./files/local_settings.py ./readthedocs/settings/local_settings.py
+COPY ./files/tasksrecommonmark.patch ./tasksrecommonmark.patch
+
+# Patch tasks.py to use newer recommonmark
+RUN patch ./readthedocs/projects/tasks.py < ./tasksrecommonmark.patch
 
 # Deploy the database
 RUN python ./manage.py migrate
