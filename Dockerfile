@@ -8,17 +8,21 @@ RUN apt-get update && apt-get -y install \
   doxygen \
   dvipng \
   graphviz \
-  nginx
+  nginx \
+  nano
 
 # Install readthedocs (bits as of Dec 15 2015)
 RUN mkdir /www
 WORKDIR /www
 
 COPY ./files/readthedocs.org-master.tar.gz ./readthedocs.org-master.tar.gz
+COPY ./files/tasksrecommonmark.patch ./tasksrecommonmark.patch
 RUN tar -zxvf readthedocs.org-master.tar.gz
 RUN mv ./readthedocs.org-master ./readthedocs.org
 
 WORKDIR /www/readthedocs.org
+
+
 
 # Install the required Python packages
 RUN pip install -r requirements.txt
@@ -28,6 +32,10 @@ RUN pip install requests==2.6.0
 
 # Override the default settings
 COPY ./files/local_settings.py ./readthedocs/settings/local_settings.py
+COPY ./files/tasksrecommonmark.patch ./tasksrecommonmark.patch
+
+# Patch tasks.py to use newer recommonmark
+RUN patch ./readthedocs/projects/tasks.py < ./tasksrecommonmark.patch
 
 # Deploy the database
 RUN python ./manage.py migrate
@@ -60,5 +68,9 @@ ENV RTD_PRODUCTION_DOMAIN 'localhost:8000'
 # Set up nginx
 COPY ./files/readthedocs.nginx.conf /etc/nginx/sites-available/readthedocs
 RUN ln -s /etc/nginx/sites-available/readthedocs /etc/nginx/sites-enabled/readthedocs
+
+# Clean Up Apt
+
+RUN apt-get autoremove -y
 
 CMD ["supervisord"]
