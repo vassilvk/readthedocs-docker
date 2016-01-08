@@ -41,7 +41,7 @@ Removing the container will delete the container's volume with all the RTD data.
 If you need to be able to delete the container and still persist your project data, you can do so by mounting a host folder which contains a copy of the initial container volume.
 
 Once the container is run with the above run command, you can copy the volume to a well-known folder at your host.
-This will let you bind the container's volume to this host folder which will allow you to persist the data even after container the container is deleted and re-run.
+This will let you bind the container's volume to this host folder which will allow you to persist the data even after the container is deleted and re-run.
 
 To find the location where Docker stores the volume, run the following command while the container is running or stopped, but not deleted:
 ```
